@@ -50,8 +50,6 @@ Thumbs.db
 .dockerignore
 
 # Generated files
-*.svg
-*.png
 *.pdf
 *.eps
 
