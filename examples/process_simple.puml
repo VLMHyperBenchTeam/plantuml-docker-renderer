@@ -1,0 +1,43 @@
+@startuml process_simple
+!theme plain
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+skinparam actor {
+    BackgroundColor #000000
+    BorderColor #333333
+    FontColor white
+}
+
+skinparam participant {
+    BackgroundColor #000000
+    BorderColor #333333
+    FontColor white
+}
+
+skinparam note {
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+    FontColor #000000
+}
+
+title **PlantUML Docker Renderer** — Диаграмма процесса
+
+actor "👤 Пользователь" as User
+participant "🐳 Docker\nContainer" as Renderer
+participant "🎨 PlantUML\nEngine" as Engine
+
+User -> Renderer: Запуск рендеринга
+Renderer -> Engine: Обработка .puml файлов
+Engine -> Renderer: Создание SVG/PNG
+Renderer -> User: Готовые изображения
+
+note right of Renderer
+  <b>Возможности:</b>
+  • SVG и PNG
+  • Логирование
+  • Обработка ошибок
+end note
+
+@enduml 

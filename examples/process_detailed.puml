@@ -1,0 +1,81 @@
+@startuml process_detailed
+!theme plain
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+
+' Цветовая схема
+skinparam actor {
+    BackgroundColor #000000
+    BorderColor #333333
+    FontColor white
+}
+
+skinparam participant {
+    BackgroundColor #000000
+    BorderColor #333333
+    FontColor white
+}
+
+skinparam note {
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+    FontColor #000000
+}
+
+title **PlantUML Docker Renderer** - Подробная диаграмма процесса
+
+actor "👤 Пользователь" as User
+participant "🐳 Docker\nContainer" as Container
+participant "🔍 File\nScanner" as Scanner
+participant "🎨 PlantUML\nEngine" as Engine
+participant "💾 File\nSystem" as FileSystem
+
+== 🎯 **Инициализация** ==
+User -> Container: 🚀 Запуск рендеринга\n<color:blue>docker run --rm -v $(pwd):/workspace</color>
+activate Container
+
+Container -> Scanner: �� Сканирование директории
+activate Scanner
+Scanner -> FileSystem: �� Поиск .puml файлов
+FileSystem --> Scanner: 📋 Список файлов
+Scanner --> Container: ✅ Найдено N файлов
+deactivate Scanner
+
+== �� **Обработка файлов** ==
+loop 🔄 Для каждого .puml файла
+    Container -> Engine: �� Рендеринг в SVG/PNG
+    activate Engine
+    
+    alt ✅ Успешный рендеринг
+        Engine -> FileSystem: 💾 Сохранение результата
+        FileSystem --> Engine: ✅ Файл создан
+        Engine --> Container: 🎉 [OK] sample.svg
+    else ❌ Ошибка рендеринга
+        Engine --> Container: �� [ERROR] Ошибка синтаксиса
+    end
+    
+    deactivate Engine
+end
+
+== �� **Завершение** ==
+Container --> User: �� Рендеринг завершён!\n📊 Обработано: N файлов
+deactivate Container
+
+note right of Container
+  <b>�� Возможности:</b>
+  • Поддержка SVG и PNG
+  • Рекурсивный поиск файлов
+  • Подробное логирование
+  • Обработка ошибок
+  • Настраиваемая точка монтирования
+end note
+
+note right of User
+  <b>�� Пример команды:</b>
+  <code>docker run --rm -v $(pwd):/workspace \\
+  ghcr.io/vlmhyperbenchteam/plantuml-renderer:latest \\
+  /workspace/docs/diagrams svg</code>
+end note
+
+@enduml
