@@ -19,36 +19,41 @@ docker run --rm -v $(pwd):$MOUNT_POINT ghcr.io/vlmhyperbenchteam/plantuml-render
 docker run --rm -v $(pwd):$MOUNT_POINT ghcr.io/vlmhyperbenchteam/plantuml-renderer:latest $MOUNT_POINT/docs/architecture/diagrams png
 ```
 
-## Использование
+## Как работает PlantUML Docker Renderer
 
-### Примеры использования
+Ниже приведены две диаграммы, которые иллюстрируют работу `plantuml-renderer` на разных уровнях детализации.
 
-#### 1. Рендеринг диаграмм в текущем проекте
+### Базовый процесс
 
-```bash
-# Из корня проекта
-export MOUNT_POINT="/workspace"
-docker run --rm -v $(pwd):$MOUNT_POINT ghcr.io/vlmhyperbenchteam/plantuml-renderer:latest $MOUNT_POINT/docs/architecture/diagrams svg
-```
+![PlantUML Docker Renderer — Диаграмма процесса](examples/process_simple.svg)
 
-#### 2. Рендеринг диаграмм в произвольной папке
+_На этой диаграмме показан основной поток работы:_
+- Пользователь запускает контейнер с помощью Docker.
+- Контейнер находит и обрабатывает все `.puml` файлы в указанной директории.
+- Результаты рендеринга (SVG/PNG) возвращаются пользователю.
 
-```bash
-# Рендеринг диаграмм в папке /path/to/diagrams
-export MOUNT_POINT="/repo"
-docker run --rm -v /path/to/diagrams:$MOUNT_POINT ghcr.io/vlmhyperbenchteam/plantuml-renderer:latest $MOUNT_POINT png
-```
+[Исходник диаграммы](examples/process_simple.puml)
 
-#### 3. Рендеринг с выводом в отдельную папку
+---
 
-```bash
-# Монтируем исходную папку и папку для результатов
-export MOUNT_POINT="/workspace"
-docker run --rm \
-  -v $(pwd)/docs/architecture/diagrams:$MOUNT_POINT/source \
-  -v $(pwd)/output/svg:$MOUNT_POINT/output \
-  ghcr.io/vlmhyperbenchteam/plantuml-renderer:latest $MOUNT_POINT/source svg
-```
+### Детализированный процесс
+
+![PlantUML Docker Renderer — Подробная диаграмма процесса](examples/process_detailed.svg)
+
+_Здесь показан полный жизненный цикл `plantuml-renderer`:_
+- Инициализация и запуск контейнера.
+- Сканирование директорий и поиск `.puml` файлов.
+- Для каждого файла — рендеринг, обработка ошибок, логирование, сохранение результата.
+- Завершение работы и возврат результатов пользователю.
+- В диаграмме отражены все ключевые этапы, включая обработку ошибок и логирование.
+
+[Исходник диаграммы](examples/process_detailed.puml)
+
+---
+
+> **Примечание:**
+> Эти диаграммы были сгенерированы самим `PlantUML Docker Renderer`.  
+> Вы можете прочитать, как получить такие же в [examples/README.md](examples/README.md).
 
 ## Структура образа
 
