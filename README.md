@@ -1,12 +1,47 @@
 # PlantUML Docker Renderer
 
+<div align="center">
+
+[![PlantUML](https://img.shields.io/badge/PlantUML-%23000000.svg?style=for-the-badge&logo=plantuml&logoColor=white)](https://plantuml.com/)
+[![Docker](https://img.shields.io/badge/Docker-%232496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![VLMHyperBench](https://img.shields.io/badge/VLMHyperBench-%23000000.svg?style=for-the-badge&logo=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F189594270%3Fs%3D48%26v%3D4)](https://github.com/VLMHyperBenchTeam/VLMHyperBench)
+
+</div>
+
 Docker образ для автоматического рендеринга PlantUML диаграмм в SVG и PNG форматы.
+
+## Структура документации
+
+Документация проекта организована следующим образом:
+- `README.md` — основная информация о проекте, быстрый старт и основные функции
+- `docs/` — папка с подробной документацией
+  - `docs/ghcr-authentication-windows.md` — решение проблемы аутентификации с GitHub Container Registry на Windows
+- `examples/` — примеры использования и тестовые диаграммы
+  - `examples/examples-usage.md` — руководство по использованию примеров
 
 ## Описание
 
 Docker образ `ghcr.io/vlmhyperbenchteam/plantuml-renderer` основан на официальном образе [plantuml/plantuml](https://hub.docker.com/r/plantuml/plantuml) и предназначен для пакетного рендеринга всех PlantUML файлов (`.puml`) в указанной директории.
 
 ## Быстрый старт
+
+### Аутентификация с GitHub Container Registry
+
+Перед использованием образа из GitHub Container Registry необходимо пройти аутентификацию. Вы можете использовать GitHub CLI или Docker CLI:
+
+**Использование GitHub CLI (рекомендуется):**
+```bash
+gh auth login
+```
+
+**Использование Docker CLI:**
+```bash
+echo YOUR_GITHUB_PERSONAL_ACCESS_TOKEN | docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
+```
+
+### Запуск рендерера
+
+#### Linux
 
 ```bash
 # Установить точку монтирования
@@ -17,6 +52,19 @@ docker run --rm -v $(pwd):$MOUNT_POINT ghcr.io/vlmhyperbenchteam/plantuml-render
 
 # Рендеринг всех .puml файлов в PNG
 docker run --rm -v $(pwd):$MOUNT_POINT ghcr.io/vlmhyperbenchteam/plantuml-renderer:latest $MOUNT_POINT/docs/architecture/diagrams png
+```
+
+#### Windows
+
+```powershell
+# Установить точку монтирования
+$env:MOUNT_POINT="/workspace"
+
+# Рендеринг всех .puml файлов в SVG
+docker run --rm -v ${PWD}:$env:MOUNT_POINT ghcr.io/vlmhyperbenchteam/plantuml-renderer:latest $env:MOUNT_POINT/docs/architecture/diagrams svg
+
+# Рендеринг всех .puml файлов в PNG
+docker run --rm -v ${PWD}:$env:MOUNT_POINT ghcr.io/vlmhyperbenchteam/plantuml-renderer:latest $env:MOUNT_POINT/docs/architecture/diagrams png
 ```
 
 ## Как работает PlantUML Docker Renderer
@@ -52,8 +100,8 @@ _Здесь показан полный жизненный цикл `plantuml-re
 ---
 
 > **Примечание:**
-> Эти диаграммы были сгенерированы самим `PlantUML Docker Renderer`.  
-> Вы можете прочитать, как получить такие же в [examples/README.md](examples/README.md).
+> Эти диаграммы были сгенерированы самим `PlantUML Docker Renderer`.
+> Вы можете прочитать, как получить такие же в [examples/examples-usage.md](examples/examples-usage.md).
 
 ## Структура образа
 
@@ -192,6 +240,17 @@ docker run --rm -v $(pwd):$MOUNT_POINT ghcr.io/vlmhyperbenchteam/plantuml-render
 
 **Результат:** Созданные SVG/PNG файлы принадлежат вашему MIT проекту и не подпадают под GPLv3.
 
-## Вклад в проект
+## Документация
 
-Мы приветствуем вклад в развитие проекта! Пожалуйста, создавайте issues и pull requests в [GitHub репозитории](https://github.com/VLMHyperBenchTeam/plantuml-docker-renderer). 
+Полная документация проекта доступна в папке [docs](docs/):
+- [ghcr-authentication-windows.md](docs/ghcr-authentication-windows.md) - Решение проблемы аутентификации с GitHub Container Registry на Windows.
+
+---
+
+<div align="center">
+
+Made with ❤️ using [Kilo Code](https://kilocode.ai/) and [Qwen3 models](https://github.com/QwenLM/Qwen3) from Alibaba.
+
+Sincerely grateful to the developers for these open-source projects and models
+
+</div>
