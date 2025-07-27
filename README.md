@@ -1,12 +1,8 @@
 # PlantUML Docker Renderer
 
-<div align="center">
-
 [![PlantUML](https://img.shields.io/badge/PlantUML-%23000000.svg?style=for-the-badge&logo=plantuml&logoColor=white)](https://plantuml.com/)
 [![Docker](https://img.shields.io/badge/Docker-%232496ED.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 [![VLMHyperBench](https://img.shields.io/badge/VLMHyperBench-%23000000.svg?style=for-the-badge&logo=https%3A%2F%2Favatars.githubusercontent.com%2Fu%2F189594270%3Fs%3D48%26v%3D4)](https://github.com/VLMHyperBenchTeam/VLMHyperBench)
-
-</div>
 
 Docker образ для автоматического рендеринга PlantUML диаграмм в SVG и PNG форматы.
 
