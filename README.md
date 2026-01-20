@@ -244,8 +244,8 @@ docker run --rm -v $(pwd):$MOUNT_POINT ghcr.io/vlmhyperbenchteam/plantuml-render
 ---
 
 <div align="center">
+Made with ❤️ using AI.
 
-Made with ❤️ using [Kilo Code](https://kilocode.ai/) and [Qwen3 models](https://github.com/QwenLM/Qwen3) from Alibaba.
 
 Sincerely grateful to the developers for these open-source projects and models
 
